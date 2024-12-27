@@ -16,18 +16,21 @@
                 <form method="POST" action="{{ route('login') }}" name="login-form" class="needs-validation" novalidate="">
                     @csrf
                   <div class="form-floating mb-3">
+                    
                     <input class="form-control form-control_gray " name="email" value="" required="" autocomplete="email"
                       autofocus="">
                     <label for="email">Email address *</label>
+                     
                   </div>
     
                   <div class="pb-3"></div>
     
                   <div class="form-floating mb-3">
+                  
                     <input id="password" type="password" class="form-control form-control_gray " name="password" required=""
                       autocomplete="current-password">
                     <label for="customerPasswodInput">Password *</label>
-                  </div>
+                   </div>
     
                   <button class="btn btn-primary w-100 text-uppercase" type="submit">Log In</button>
     
