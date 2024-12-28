@@ -31,4 +31,7 @@ Route::middleware(['auth'])->group( function(){
 Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::get('/admin',[AdminController::class,'index'])->name('admin.index');
     route::get('/brands',[AdminController::class,'brands'])->name('admin.brands');
+    route::get('/admin/brand/add',[AdminController::class,'add_brand'])->name('admin.brand.add');
+    route::post('/admin/brand/store',[AdminController::class,'brand_store'])->name('admin.brand.store');
+    
 });
