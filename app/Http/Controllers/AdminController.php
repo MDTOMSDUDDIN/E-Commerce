@@ -107,4 +107,8 @@ class AdminController extends Controller
             'categories'=>$categories,
         ]);
     }
+
+    public function category_add(){
+        return view('admin.category-add');
+    }
 }
