@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -96,5 +97,14 @@ class AdminController extends Controller
         }
         $brand->delete();
         return redirect()->route('admin.brands')->with('status','Record Brands has been Delete successfully !');
+    }
+// //categories section starting ____________________________________________________________________________________________
+
+    public function categories(){
+        $categories=category::orderby('id','desc')->paginate();
+
+        return view("admin.categories", [
+            'categories'=>$categories,
+        ]);
     }
 }
