@@ -86,7 +86,7 @@ class AdminController extends Controller
             $brand->image = $file_name;
         }        
         $brand->save();        
-        return redirect()->route('admin.brands')->with('status','Record has been updated successfully !');
+        return redirect()->route('admin.brands')->with('status','Brand has been updated successfully !');
     }
 //delete Admin Brands 
     public function delete_brand($id){
@@ -96,7 +96,7 @@ class AdminController extends Controller
           File::delete(public_path('uploads/brands').'/'.$brand->image);
         }
         $brand->delete();
-        return redirect()->route('admin.brands')->with('status','Record Brands has been Delete successfully !');
+        return redirect()->route('admin.brands')->with('status','Brands has been Delete successfully !');
     }
 // //categories section starting ____________________________________________________________________________________________
 
@@ -139,5 +139,36 @@ class AdminController extends Controller
         $img->resize(124,124,function($constrant){
             $constrant->aspectRadio();
         })->save( $destinationPath.'/'.$imageName);
+     }
+
+     public function category_edit($id){
+        $category=category::find($id);
+        return view('admin.category-edit',[
+            'category'=>$category,
+        ]);
+     }
+
+     public function update_category(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:categories,slug,'.$request->id,
+            'image' => 'mimes:png,jpg,jpeg|max:2048'
+        ]);
+        $category = Category::find($request->id);
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        if($request->hasFile('image'))
+        {            
+            if (File::exists(public_path('uploads/categories').'/'.$category->image)) {
+                File::delete(public_path('uploads/categories').'/'.$category->image);
+            }
+            $image = $request->file('image');
+            $file_extention = $request->file('image')->extension();
+            $file_name = Carbon::now()->timestamp . '.' . $file_extention;
+            $this->GenerateCategoryThumnailsImage($image,$file_name);
+            $category->image = $file_name;
+        }        
+        $category->save();        
+        return redirect()->route('admin.categories')->with('status','Category has been updated successfully !');
      }
 }

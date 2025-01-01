@@ -30,6 +30,8 @@ Route::middleware(['auth'])->group( function(){
 });
 Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::get('/admin',[AdminController::class,'index'])->name('admin.index');
+    
+//Brands section -------------------------------------------------------------------------------------------
     route::get('/brands',[AdminController::class,'brands'])->name('admin.brands');
     route::get('/admin/brand/add',[AdminController::class,'add_brand'])->name('admin.brand.add');
     route::post('/admin/brand/store',[AdminController::class,'brand_store'])->name('admin.brand.store');
@@ -37,9 +39,11 @@ Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::put('/admin/brand/update',[AdminController::class,'update_brand'])->name('admin.brand.update');
     route::delete('/admin/brand/{id}/delete',[AdminController::class,'delete_brand'])->name('admin.brand.delete');
     
-//categories section 
+//categories section ----------------------------------------------------------------------------------------
     route::get('/admin/categories',[AdminController::class,'categories'])->name('admin.categories');
     route::get('/admin/category/add',[AdminController::class,'category_add'])->name('admin.category.add');
     route::post('/admin/category/store',[AdminController::class,'category_store'])->name('admin.category.store');
+    route::get('/admin/category/edit/{id}',[AdminController::class,'category_edit'])->name('admin.category.edit');
+    route::put('/admin/category/update',[AdminController::class,'update_category'])->name('admin.category.update');
 
 });
