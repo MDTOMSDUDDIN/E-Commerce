@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AuthAdmin;
@@ -46,5 +47,6 @@ Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::get('/admin/category/edit/{id}',[AdminController::class,'category_edit'])->name('admin.category.edit');
     route::put('/admin/category/update',[AdminController::class,'update_category'])->name('admin.category.update');
     route::delete('/admin/category/delete/{id}',[AdminController::class,'delete_category'])->name('admin.category.delete');
-
+// //Products section --------------------------------------------------------------------------------------------------
+    route::get('admin/products',[ProductController::class,'products'])->name('admin.products');
 });
