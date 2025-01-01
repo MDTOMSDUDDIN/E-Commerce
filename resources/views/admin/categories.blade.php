@@ -33,7 +33,7 @@
                         </div>
                     </form>
                 </div>
-                <a class="tf-button style-1 w208" href="#"><i
+                <a class="tf-button style-1 w208" href="{{ route('admin.category.add') }}"><i
                         class="icon-plus"></i>Add new</a>
             </div>
             @if (session('status'))
@@ -57,7 +57,7 @@
                                 <td>4</td>
                                 <td class="pname">
                                     <div class="image">
-                                        <img src="{{ asset('uploads/brands') }}/{{ $category->image }}" alt="{{ $category->name }}" class="image">
+                                        <img src="{{ asset('uploads/categories') }}/{{ $category->image }}" alt="{{ $category->name }}" class="image">
                                     </div>
                                     <div class="name">
                                         <a href="#" class="body-title-2">{{ $category->name }}</a>

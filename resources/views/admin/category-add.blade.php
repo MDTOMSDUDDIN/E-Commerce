@@ -22,13 +22,13 @@
                         <i class="icon-chevron-right"></i>
                     </li>
                     <li>
-                        <div class="text-tiny">New Category</div>
+                        <div class="text-tiny">New category</div>
                     </li>
                 </ul>
             </div>
             <!-- new-category -->
             <div class="wg-box">
-                <form class="form-new-product form-style-1" action="{{ route('admin.brand.store') }}" method="POST" enctype="multipart/form-data">
+                <form class="form-new-product form-style-1" action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <fieldset class="name">
                         <div class="body-title">Category Name <span class="tf-color-1">*</span></div>
