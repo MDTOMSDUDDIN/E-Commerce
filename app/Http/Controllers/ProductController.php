@@ -80,7 +80,8 @@ class ProductController extends Controller
             $files=$request->file('images');
 
             foreach ($files as $file) {
-                $gextension=$file->getClientOrginalExtension();
+                $gextension=$file->getClientOriginalExtension();
+
                 $gcheck=in_array($gextension,$allowedFileExtension);
                 if($gcheck){
                     $gfileName=$current_timestamp."-".$counter.".".$gextension;
