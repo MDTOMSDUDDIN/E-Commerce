@@ -66,17 +66,17 @@ class ProductController extends Controller
 
         if($request->hasFile('image')){
           $image=$request->file('image');
-          $imageName=$current_timestamp.'.'.$image->extension();
+          $imageName=$current_timestamp . '.' . $image->extension();
           $this->GenerateProductThumnailsImage($image,$imageName);
           $product->image=$imageName;
         }
 
         $gallery_arr=array();
         $gallery_images= "";
-        $counter=1; 
+        $counter= 1; 
 
         if($request->hasFile('images')){
-            $allowedFileExtension=['jpg,jpeg,png'];
+            $allowedFileExtension=['jpg','jpeg','png'];
             $files=$request->file('images');
 
             foreach ($files as $file) {
@@ -84,10 +84,10 @@ class ProductController extends Controller
 
                 $gcheck=in_array($gextension,$allowedFileExtension);
                 if($gcheck){
-                    $gfileName=$current_timestamp."-".$counter.".".$gextension;
+                    $gfileName=$current_timestamp . "-" . $counter . "." . $gextension;
                     $this->GenerateProductThumnailsImage($file,$gfileName);
-                    array_push($gallery_arr,$gfileName);
-                    $counter=$counter+1;
+                    array_push($gallery_arr , $gfileName);
+                    $counter= $counter + 1;
                 }
             }
             $gallery_images=implode(',',$gallery_arr);
@@ -102,6 +102,7 @@ class ProductController extends Controller
         $destinationPathThumbnails=public_path('uploads/products/thumbnails');
         $destinationPath=public_path('uploads/products');
         $img=Image::read($image->path());
+        
         $img->cover(540,689,"top");
         $img->resize(540,689,function($constrant){
             $constrant->aspectRadio();
@@ -110,5 +111,18 @@ class ProductController extends Controller
         $img->resize(104,104,function($constrant){
             $constrant->aspectRadio();
         })->save( $destinationPathThumbnails.'/'.$imageName);
+     }
+
+//update 
+     public function product_edit($id){
+        $product=Product::find($id);
+        $categories=category::select('id','name')->orderby('name')->get();
+        $brands=Brand::select('id','name')->orderby('name')->get();
+
+        return view('admin.product-edit',[
+            'product'=>$product,
+            'categories'=>$categories,
+            'brands'=>$brands,
+        ]);
      }
 }
