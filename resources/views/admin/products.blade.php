@@ -32,7 +32,7 @@
                         </div>
                     </form>
                 </div>
-                <a class="tf-button style-1 w208" href="add-product.html"><i
+                <a class="tf-button style-1 w208" href="{{ route('admin.product.add') }}"><i
                         class="icon-plus"></i>Add new</a>
             </div>
             <div class="table-responsive">

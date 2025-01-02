@@ -133,7 +133,7 @@ class AdminController extends Controller
     }
    
      public function GenerateCategoryThumnailsImage($image,$imageName){
-        $destinationPath=public_path('uploads\categories');
+        $destinationPath=public_path('uploads/categories');
         $img=Image::read($image->path());
         $img->cover(124,124,"top");
         $img->resize(124,124,function($constrant){
