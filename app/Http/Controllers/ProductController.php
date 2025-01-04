@@ -203,7 +203,29 @@ class ProductController extends Controller
               $product->images=$gallery_images;
           }
           $product->save();
-          return redirect(route('admin.products'))->with('status','update has been Add Successfully ');
-  
+          return redirect(route('admin.products'))->with('status','Product has been Updated Successfully ');
+     }
+
+
+     public function delete_product($id){
+        $product=Product::find($id);
+            if(File::exists(public_path('uploads/products').'/'.$product->image)){
+                File::delete(public_path('uploads/products').'/'.$product->image);
+            }
+            if(File::exists(public_path('uploads/products/thumbnails').'/'.$product->image)){
+                File::delete(public_path('uploads/products/thumbnails').'/'.$product->image);
+            }
+
+            foreach(explode(',',$product->images) as $ofile){
+                if(File::exists(public_path('uploads/products').'/'.$ofile)){
+                    File::delete(public_path('uploads/products').'/'.$ofile);
+                }
+                if(File::exists(public_path('uploads/products/thumbnails').'/'.$ofile)){
+                    File::delete(public_path('uploads/products/thumbnails').'/'.$ofile);
+                }
+            }
+            
+        $product->delete();
+        return redirect(route('admin.products'))->with('status','Product  has been Deleted Successfully ');
      }
 }

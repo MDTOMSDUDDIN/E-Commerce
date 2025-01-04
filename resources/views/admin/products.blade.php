@@ -39,7 +39,7 @@
             @if (session('status'))
             <strong class="alert alert-success ">{{ session('status') }}</strong> 
             @endif
-            
+
             <div class="table-responsive">
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -90,7 +90,9 @@
                                                 <i class="icon-edit-3"></i>
                                             </div>
                                         </a>
-                                        <form action="#" method="POST">
+                                        <form action="{{ route('admin.product.delete',['id'=>$product->id]) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
                                             <div class="item text-danger delete">
                                                 <i class="icon-trash-2"></i>
                                             </div>
@@ -112,3 +114,25 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(function(){
+            $(".delete").on('click',function(e){
+                e.preventDefault();
+                var selectedForm = $(this).closest('form');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to deleted this Brand record ?",
+                    type: "warning",
+                    buttons: ["No", "Yes"],
+                    confirmButtonColor: 'red',
+                }).then(function (result) {
+                    if (result) {
+                        selectedForm.submit();  
+                    }
+                });                             
+            });
+        });
+    </script>
+@endpush
