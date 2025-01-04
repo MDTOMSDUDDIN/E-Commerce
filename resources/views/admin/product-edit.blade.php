@@ -32,7 +32,7 @@
                 <form class="tf-section-2 form-add-product" method="POST" action="{{ route('admin.product.update') }}" enctype="multipart/form-data" >
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="id" value="{{ $product->id }}" >
+                    <input type="hidden" name="id" value="{{ $product->id }}" />
                     <div class="wg-box">
                         <fieldset class="name">
                             <div class="body-title mb-10">Product name <span class="tf-color-1">*</span>

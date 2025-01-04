@@ -129,7 +129,7 @@ class ProductController extends Controller
      public function product_update(Request $request){
         $request->validate([
             'name'=>'required',
-            'slug'=>'required|unique:products,slug'.$request->id,
+            'slug'=>'required|unique:products,slug,'.$request->id,
             'short_description'=>'required',
             'description'=>'required',
             'regular_price'=>'required',
