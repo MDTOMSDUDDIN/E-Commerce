@@ -27,6 +27,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/',[HomeController::class, 'index'])->name('home.index');
 route::get('/shop',[ShopController::class,'index'])->name('shop.index');
+route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
 
 
 
