@@ -11,4 +11,18 @@ class CartController extends Controller
         $items=Cart::instance('cart')->content();
         return view('cart',['items'=>$items,]);
     }
+
+
+    public function add_to_cart(Request $request){
+            Cart::instance('cart')->add(
+                $request->id,
+                $request->name,
+                $request->quantity,
+                $request->price
+            )->associate('App\Models\Product');
+    
+            return redirect()->back();
+        }
+
+    
 }

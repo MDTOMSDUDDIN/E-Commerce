@@ -108,14 +108,18 @@
           <div class="product-single__short-desc">
             <p>{{ $product->short_description }}</p>
           </div>
-          <form name="addtocart-form" method="post">
+          <form name="addtocart-form" method="post" action="{{ route('cart.add') }}">
+            @csrf
             <div class="product-single__addtocart">
               <div class="qty-control position-relative">
                 <input type="number" name="quantity" value="1" min="1" class="qty-control__number text-center">
                 <div class="qty-control__reduce">-</div>
                 <div class="qty-control__increase">+</div>
               </div><!-- .qty-control -->
-              <button type="submit" class="btn btn-primary btn-addtocart js-open-aside" data-aside="cartDrawer">Add to
+              <input type="hidden" name="id" value="{{ $product->id }}">
+              <input type="hidden" name="name" value="{{ $product->name }}">
+              <input type="hidden" name="price" value="{{ $product->sale_price == '' ? $product->regular_price:$product->sale_price }}">
+              <button type="submit" class="btn btn-primary btn-addtocart " data-aside="cartDrawer">Add to
                 Cart</button>
             </div>
           </form>
@@ -397,8 +401,7 @@
                      <img loading="lazy" src="{{ asset('uploads/products') }}/{{ $galleryImg }}" width="330" height="400" alt="{{ $rproduct->name }}" class="pc__img pc__img-second">
                     @endforeach
                     </a>
-                    <button
-                    class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
+                    <button class="pc__atc btn anim_appear-bottom btn position-absolute border-0 text-uppercase fw-medium js-add-cart js-open-aside"
                     data-aside="cartDrawer" title="Add To Cart">Add To Cart</button>
                 </div>
 

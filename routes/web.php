@@ -29,8 +29,10 @@ require __DIR__.'/auth.php';
 Route::get('/',[HomeController::class, 'index'])->name('home.index');
 route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
+
 //cartController ------------
 route::get('/cart',[CartController::class,"index"])->name('cart.index');
+route::post('/cart/add',[CartController::class,"add_to_cart"])->name('cart.add');
 
 
 
