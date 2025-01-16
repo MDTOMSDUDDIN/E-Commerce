@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -28,6 +29,8 @@ require __DIR__.'/auth.php';
 Route::get('/',[HomeController::class, 'index'])->name('home.index');
 route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
+//cartController ------------
+route::get('/cart',[CartController::class,"index"])->name('cart.index');
 
 
 
