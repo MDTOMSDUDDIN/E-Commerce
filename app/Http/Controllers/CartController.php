@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Surfsidemedia\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -14,12 +15,7 @@ class CartController extends Controller
 
 
     public function add_to_cart(Request $request){
-            Cart::instance('cart')->add(
-                $request->id,
-                $request->name,
-                $request->quantity,
-                $request->price
-            )->associate('App\Models\Product');
+            Cart::instance('cart')->add($request->id,$request->name,$request->quantity,$request->price)->associate('App\Models\Product');
     
             return redirect()->back();
         }
