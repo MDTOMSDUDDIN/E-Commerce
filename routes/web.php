@@ -38,9 +38,6 @@ route::put('/cart/decrease-quantity/{rowId}',[CartController::class,"decrease_ca
 route::delete('/cart/remove/{rowId}',[CartController::class,"remove_item"])->name('cart.item.remove');
 route::delete('/cart/clear',[CartController::class,"empty_cart"])->name('cart.destroy');
 
-
-
-
 //group auth,AuthAdmin middleware   ------------------------------------------------------------------------
 Route::middleware(['auth'])->group( function(){
     route::get('/account_dashboard',[UserController::class,'index'])->name('user.index');

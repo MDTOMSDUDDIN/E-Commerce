@@ -326,6 +326,14 @@
           </div>
 
           <div class="shop-acs d-flex align-items-center justify-content-between justify-content-md-end flex-grow-1">
+            <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0 mr-2" aria-label="Page Size" id="pagesize" name="pagesize" style="margin-right:25px;">
+              <option class="text-center" value="12" {{ $size==12 ? "selected":""}}>Show</option class="text-center">
+              <option class="text-center" value="24" {{ $size==24 ? "selected":""}}>24</option class="text-center">
+              <option class="text-center" value="48" {{ $size==48 ? "selected":""}}>48</option class="text-center">
+              <option class="text-center" value="102" {{ $size==102 ? "selected":""}}>102</option>
+            
+            </select>
+
             <select class="shop-acs__select form-select w-auto border-0 py-0 order-1 order-md-0" aria-label="Sort Items"
               name="total-number">
               <option selected>Default Sorting</option>
@@ -448,7 +456,7 @@
         
         <div class="divider"></div>
         <div class="flex items-center justify-between flex-wrap gap-10 wgp-pagination ">
-                {{ $products->links('pagination::bootstrap-5') }}
+                {{ $products->withQueryString()->links('pagination::bootstrap-5') }}
         </div>
         {{-- <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
           <a href="#" class="btn-link d-inline-flex align-items-center">
@@ -473,4 +481,19 @@
       </div>
     </section>
   </main>
+  <form id="frmfilter" method="GET" action="{{ route('shop.index') }}">
+    @csrf
+    <input type="hidden" name="page" value="{{ $products->currentPage() }}">
+    <input type="hidden" name="size" id="size" value="{{ $size }}">
+  </form>
 @endsection
+@push('scripts')
+  <script>
+    $(function(){
+      $("#pagesize").on("change",function(){
+        $("#size").val($("#pagesize option:selected").val());
+        $("#frmfilter").submit();
+      })
+    })
+  </script>
+@endpush
