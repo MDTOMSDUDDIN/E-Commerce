@@ -35,6 +35,8 @@ route::get('/cart',[CartController::class,"index"])->name('cart.index');
 route::post('/cart/add',[CartController::class,"add_to_cart"])->name('cart.add');
 route::put('/cart/increase-quantity/{rowId}',[CartController::class,"increase_cart_quantity"])->name('cart.qty.increase');
 route::put('/cart/decrease-quantity/{rowId}',[CartController::class,"decrease_cart_quantity"])->name('cart.qty.decrease');
+route::delete('/cart/remove/{rowId}',[CartController::class,"remove_item"])->name('cart.item.remove');
+route::delete('/cart/clear',[CartController::class,"empty_cart"])->name('cart.destroy');
 
 
 
