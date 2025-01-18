@@ -1,5 +1,19 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+      .brand-list li, .category-list li{
+        line-height: 40px;
+      }
+      .brand-list li .chk-brand, .category-list li .chk-category{
+      width: 1rem;
+      height: 1rem;
+      color: #e4e4e4;
+      border: 0.125rem solid currentColor;
+      border-radius: 0;
+      margin-right: 0.75rem;
+      }
+    </style>
+
 <main class="pt-90">
     <section class="shop-main container d-flex pt-4 pt-xl-5">
       <div class="shop-sidebar side-sticky bg-body" id="shopFilter">
@@ -28,36 +42,16 @@
               aria-labelledby="accordion-heading-1" data-bs-parent="#categories-list">
               <div class="accordion-body px-0 pb-0 pt-3">
                 <ul class="list list-inline mb-0">
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Dresses</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Shorts</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Sweatshirts</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Swimwear</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Jackets</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">T-Shirts & Tops</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Jeans</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Trousers</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Men</a>
-                  </li>
-                  <li class="list-item">
-                    <a href="#" class="menu-link py-1">Jumpers & Cardigans</a>
-                  </li>
+                  @foreach ($categories as $category)
+                    <li class="list-item">
+                      <span class="manu-link py-1 category-list">
+                        <input type="checkbox" class="chk-catagory" name="categories" value="{{ $category->id }}"
+                        @if (in_array($category->id,explode(',',$f_categories))) checked="checked" @endif />
+                        {{ $category->name }}
+                      </span>
+                      <span class="text-right float-end"> {{ $category->products->count() }} </span>
+                    </li>
+                  @endforeach
                 </ul>
               </div>
             </div>
@@ -162,50 +156,6 @@
                     </li>
                   @endforeach
                 </ul>
-                {{-- <select class="d-none" multiple name="total-numbers-list">
-                  <option value="1">Adidas</option>
-                  <option value="2">Balmain</option>
-                  <option value="3">Balenciaga</option>
-                  <option value="4">Burberry</option>
-                  <option value="5">Kenzo</option>
-                  <option value="5">Givenchy</option>
-                  <option value="5">Zara</option>
-                </select> --}}
-                {{-- <div class="search-field__input-wrapper mb-3">
-                  <input type="text" name="search_text"
-                    class="search-field__input form-control form-control-sm border-light border-2"
-                    placeholder="Search" />
-                </div>
-                <ul class="multi-select__list list-unstyled">
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Adidas</span>
-                    <span class="text-secondary">2</span>
-                  </li>
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Balmain</span>
-                    <span class="text-secondary">7</span>
-                  </li>
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Balenciaga</span>
-                    <span class="text-secondary">10</span>
-                  </li>
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Burberry</span>
-                    <span class="text-secondary">39</span>
-                  </li>
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Kenzo</span>
-                    <span class="text-secondary">95</span>
-                  </li>
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Givenchy</span>
-                    <span class="text-secondary">1092</span>
-                  </li>
-                  <li class="search-suggestion__item multi-select__item text-primary js-search-select js-multi-select">
-                    <span class="me-auto">Zara</span>
-                    <span class="text-secondary">48</span>
-                  </li>
-                </ul> --}}
               </div>
             </div>
           </div>
@@ -476,6 +426,7 @@
     <input type="hidden" name="size" id="size" value="{{ $size }}">
     <input type="hidden" name="order" id="order" value="{{ $order }}">
     <input type="hidden" name="brands" id="hdnBrands">
+    <input type="hidden" name="categories" id="hdnCategories">
   </form>
 @endsection
 @push('scripts')
@@ -502,6 +453,19 @@
           }
         });
         $("#hdnBrands").val(brands);
+        $("#frmfilter").submit();
+      });
+
+      $("input[name='categories']").on("change",function(){
+        var categories="";
+        $("input[name='categories']:checked").each(function(){
+          if(categories==""){
+            categories +=$(this).val();
+          }else{
+            categories +="," + $(this).val();
+          }
+        });
+        $("#hdnCategories").val(categories);
         $("#frmfilter").submit();
       });
     })

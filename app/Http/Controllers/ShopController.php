@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Brand;
+use App\Models\category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Break_;
@@ -16,6 +17,7 @@ class ShopController extends Controller
         $o_order= "";
         $order=$request->query('order') ? $request->query('order') : -1;
         $f_brands=$request->query('brands');
+        $f_categories=$request->query('categories');
         switch($order){
             case 1:
                 $o_column='created_at';
@@ -39,10 +41,15 @@ class ShopController extends Controller
         }
         
         $brands=Brand::orderBy('name','ASC')->get();
+        $categories=category::orderBy('name','ASC')->get();
 
         $products=Product::where(function($query) use($f_brands){
             $query->whereIn('brand_id',explode(',',$f_brands))->orWhereRaw("'".$f_brands."'=''");
-        })->orderby($o_column,$o_order)->paginate($size);
+        })
+        ->where(function($query) use($f_categories){
+                $query->whereIn('category_id',explode(',',$f_categories))->orWhereRaw("'".$f_categories."'=''");
+        })
+        ->orderby($o_column,$o_order)->paginate($size);
         
             return view('shop',[
                 'products'=>$products,
@@ -50,6 +57,8 @@ class ShopController extends Controller
                 'order'=>$order,
                 'brands'=>$brands,
                 'f_brands'=>$f_brands,
+                'categories'=>$categories,
+                'f_categories'=>$f_categories,
             ]);
     }
 
