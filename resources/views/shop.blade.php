@@ -148,7 +148,21 @@
             <div id="accordion-filter-brand" class="accordion-collapse collapse show border-0"
               aria-labelledby="accordion-heading-brand" data-bs-parent="#brand-filters">
               <div class="search-field multi-select accordion-body px-0 pb-0">
-                <select class="d-none" multiple name="total-numbers-list">
+                <ul class="list list-inline mb-0 brand-list">
+                  @foreach ($brands as $brand)
+                    <li class="list-item">
+                      <span class="menu-link py-1">
+                        <input type="checkbox" name="brands" value="{{ $brand->id }}" class="chk-brand"
+                        @if (in_array($brand->id,explode(',',$f_brands))) checked="checked" @endif>
+                        {{ $brand->name }}
+                      </span>
+                      <span class="text-right float-end">
+                      {{ $brand->products->count() }}
+                      </span>
+                    </li>
+                  @endforeach
+                </ul>
+                {{-- <select class="d-none" multiple name="total-numbers-list">
                   <option value="1">Adidas</option>
                   <option value="2">Balmain</option>
                   <option value="3">Balenciaga</option>
@@ -156,8 +170,8 @@
                   <option value="5">Kenzo</option>
                   <option value="5">Givenchy</option>
                   <option value="5">Zara</option>
-                </select>
-                <div class="search-field__input-wrapper mb-3">
+                </select> --}}
+                {{-- <div class="search-field__input-wrapper mb-3">
                   <input type="text" name="search_text"
                     class="search-field__input form-control form-control-sm border-light border-2"
                     placeholder="Search" />
@@ -191,7 +205,7 @@
                     <span class="me-auto">Zara</span>
                     <span class="text-secondary">48</span>
                   </li>
-                </ul>
+                </ul> --}}
               </div>
             </div>
           </div>
@@ -452,26 +466,7 @@
         <div class="flex items-center justify-between flex-wrap gap-10 wgp-pagination ">
                 {{ $products->withQueryString()->links('pagination::bootstrap-5') }}
         </div>
-        {{-- <nav class="shop-pages d-flex justify-content-between mt-3" aria-label="Page navigation">
-          <a href="#" class="btn-link d-inline-flex align-items-center">
-            <svg class="me-1" width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-              <use href="#icon_prev_sm" />
-            </svg>
-            <span class="fw-medium">PREV</span>
-          </a>
-          <ul class="pagination mb-0">
-            <li class="page-item"><a class="btn-link px-1 mx-2 btn-link_active" href="#">1</a></li>
-            <li class="page-item"><a class="btn-link px-1 mx-2" href="#">2</a></li>
-            <li class="page-item"><a class="btn-link px-1 mx-2" href="#">3</a></li>
-            <li class="page-item"><a class="btn-link px-1 mx-2" href="#">4</a></li>
-          </ul>
-          <a href="#" class="btn-link d-inline-flex align-items-center">
-            <span class="fw-medium me-1">NEXT</span>
-            <svg width="7" height="11" viewBox="0 0 7 11" xmlns="http://www.w3.org/2000/svg">
-              <use href="#icon_next_sm" />
-            </svg>
-          </a>
-        </nav> --}}
+
       </div>
     </section>
   </main>
@@ -480,6 +475,7 @@
     <input type="hidden" name="page" value="{{ $products->currentPage() }}">
     <input type="hidden" name="size" id="size" value="{{ $size }}">
     <input type="hidden" name="order" id="order" value="{{ $order }}">
+    <input type="hidden" name="brands" id="hdnBrands">
   </form>
 @endsection
 @push('scripts')
@@ -493,7 +489,21 @@
       $("#orderby").on("change",function(){
         $("#order").val($("#orderby option:selected").val());
         $("#frmfilter").submit();
-      })
+      });
+
+
+      $("input[name='brands']").on("change",function(){
+        var brands="";
+        $("input[name='brands']:checked").each(function(){
+          if(brands==""){
+            brands +=$(this).val();
+          }else{
+            brands +="," + $(this).val();
+          }
+        });
+        $("#hdnBrands").val(brands);
+        $("#frmfilter").submit();
+      });
     })
   </script>
 @endpush
