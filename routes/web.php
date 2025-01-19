@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WishlistController;
 use App\Http\Middleware\AuthAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,8 @@ route::put('/cart/increase-quantity/{rowId}',[CartController::class,"increase_ca
 route::put('/cart/decrease-quantity/{rowId}',[CartController::class,"decrease_cart_quantity"])->name('cart.qty.decrease');
 route::delete('/cart/remove/{rowId}',[CartController::class,"remove_item"])->name('cart.item.remove');
 route::delete('/cart/clear',[CartController::class,"empty_cart"])->name('cart.destroy');
+// ---------------------------------------------------------------------
+route::post('/wishlist/add',[WishlistController::class,"add_to_wishlist"])->name('wishlist.add');
 
 //group auth,AuthAdmin middleware   ------------------------------------------------------------------------
 Route::middleware(['auth'])->group( function(){
