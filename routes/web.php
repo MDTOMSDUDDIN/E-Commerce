@@ -38,8 +38,10 @@ route::put('/cart/increase-quantity/{rowId}',[CartController::class,"increase_ca
 route::put('/cart/decrease-quantity/{rowId}',[CartController::class,"decrease_cart_quantity"])->name('cart.qty.decrease');
 route::delete('/cart/remove/{rowId}',[CartController::class,"remove_item"])->name('cart.item.remove');
 route::delete('/cart/clear',[CartController::class,"empty_cart"])->name('cart.destroy');
-// ---------------------------------------------------------------------
+
+//WishlistController ---------------------------------------------------------------------
 route::post('/wishlist/add',[WishlistController::class,"add_to_wishlist"])->name('wishlist.add');
+route::get('/wishlist',[WishlistController::class,"index"])->name('wishlist.index');
 
 //group auth,AuthAdmin middleware   ------------------------------------------------------------------------
 Route::middleware(['auth'])->group( function(){

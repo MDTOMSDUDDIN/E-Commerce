@@ -478,7 +478,7 @@
                   </div>
                 @endguest
       
-                <a href="wishlist.html" class="header-tools__item header-tools__cart">
+                <a href="{{ route('wishlist.index') }}" class="header-tools__item header-tools__cart">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <use href="#icon_heart" />
                   </svg>
@@ -501,7 +501,7 @@
             </div>
           </div>
         </header>
-        
+    
         @yield("content")
       
         <hr class="mt-5 text-secondary" />
