@@ -44,6 +44,7 @@ route::post('/wishlist/add',[WishlistController::class,"add_to_wishlist"])->name
 route::get('/wishlist',[WishlistController::class,"index"])->name('wishlist.index');
 route::delete('/wishlist/item/remove/{rowId}',[WishlistController::class,"remove_item"])->name('wishlist.item.remove');
 route::delete('/wishlist/clear',[WishlistController::class,"empty_wishlist"])->name('wishlist.items.clear');
+Route::post('wishlist/move/cart/{rowId}',[WishlistController::class,"remove_to_cart"])->name('wishlist.move.to.cart');
 
 //group auth,AuthAdmin middleware   ------------------------------------------------------------------------
 Route::middleware(['auth'])->group( function(){
