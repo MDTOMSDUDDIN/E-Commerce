@@ -105,13 +105,29 @@
             </tbody>
           </table>
           <div class="cart-table-footer">
-            <form action="{{ route('cart.apply.coupon') }}" method="POST" class="position-relative bg-body">
+            {{-- <form action="{{ route('cart.apply.coupon') }}" method="POST" class="position-relative bg-body">
               @csrf
-
+             
               <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code" value="@if (Session::has('coupon')){{ Session::get('coupon')['code'] }} Applied! @endif">
               <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
-                value="APPLY COUPON">
-            </form>
+                value="Remove COUPON">
+            </form> --}}
+            @if (!Session::has('coupon'))
+              <form action="{{ route('cart.apply.coupon') }}" method="POST" class="position-relative bg-body">
+                @csrf
+                <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code" value="">
+                <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
+                  value="APPLY COUPON">
+              </form>
+            @else
+              <form action="{{ route('cart.coupon.remove') }}" method="POST" class="position-relative bg-body">
+                @csrf
+                @method("DELETE")
+                <input class="form-control" type="text" name="coupon_code" placeholder="Coupon Code" value="@if (Session::has('coupon')){{ Session::get('coupon')['code'] }} Applied! @endif">
+                <input class="btn-link fw-medium position-absolute top-0 end-0 h-100 px-4" type="submit"
+                  value="Remove COUPON">
+              </form>
+            @endif
             <form method="POST" action="{{ route('cart.destroy') }}">
               @csrf
               @method('DELETE')

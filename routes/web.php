@@ -40,6 +40,7 @@ route::delete('/cart/remove/{rowId}',[CartController::class,"remove_item"])->nam
 route::delete('/cart/clear',[CartController::class,"empty_cart"])->name('cart.destroy');
 
 route::post('/cart/apply/coupon',[CartController::class,"apply_coupon_code"])->name('cart.apply.coupon');
+route::delete('/cart/coupon/remove',[CartController::class,"remove_coupon_code"])->name('cart.coupon.remove');
 
 
 //WishlistController ---------------------------------------------------------------------
