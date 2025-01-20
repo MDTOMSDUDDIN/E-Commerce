@@ -60,7 +60,8 @@ Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::get('/admin/brand/edit/{id}',[AdminController::class,'edit_brand'])->name('admin.brand.edit');
     route::put('/admin/brand/update',[AdminController::class,'update_brand'])->name('admin.brand.update');
     route::delete('/admin/brand/{id}/delete',[AdminController::class,'delete_brand'])->name('admin.brand.delete');
-    
+    route::get('/admin/coupon',[AdminController::class,'coupon'])->name('admin.coupon');
+
 //categories section ----------------------------------------------------------------------------------------
     route::get('/admin/categories',[AdminController::class,'categories'])->name('admin.categories');
     route::get('/admin/category/add',[AdminController::class,'category_add'])->name('admin.category.add');
