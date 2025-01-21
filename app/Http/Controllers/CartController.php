@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Address;
 use App\Models\Coupon;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Surfsidemedia\Shoppingcart\Facades\Cart;
 
@@ -87,7 +89,7 @@ class CartController extends Controller
                 'discount'=> number_format(floatval($discount),2,'.',''),
                 'subtotal'=> number_format(floatval($subtoalAfterDiscount),2,'.',''),
                 'tax'=> number_format(floatval($taxAfterDiscount),2,'.',''),
-                'tatal'=> number_format(floatval($totalAfterDiscount),2,'.','')
+                'total'=> number_format(floatval($totalAfterDiscount),2,'.','')
             ]);
         }
     }
@@ -98,4 +100,14 @@ class CartController extends Controller
         return back()->with('success','Coupon Code Deleted Successfull !');
     }
     
+    public function checkout(){
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+
+        $address=Address::where('user_id',Auth::user()->id)->where('isdefault')->first();
+        return view('checkout',[
+            'address'=>$address,
+        ]);
+    }
 }
