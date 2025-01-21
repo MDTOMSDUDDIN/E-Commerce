@@ -33,9 +33,9 @@
                     </form>
                 </div>
             </div>
-            <div class="wg-table table-all-user ">
-                <div class="table-responsive ">
-                    <table class="table table-striped table-bordered">
+            <div class=" table-all-user">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th style="width:70px">OrderNo</th>
@@ -48,6 +48,7 @@
                                 <th class="text-center">Order Date</th>
                                 <th class="text-center">Total Items</th>
                                 <th class="text-center">Delivered On</th>
+                                <th class="text-center">View Details</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +65,7 @@
                                 <td class="text-center">{{ $order->orderItems->count() }}</td>
                                 <td class="text-center">{{ $order->delivered_date }}</td>
                                 <td class="text-center">
-                                    <a href="order-details.html">
+                                    <a href="{{ route('admin.orders.details',['order_id'=>$order->id]) }}">
                                         <div class="list-icon-function view-icon">
                                             <div class="item eye">
                                                 <i class="icon-eye"></i>
