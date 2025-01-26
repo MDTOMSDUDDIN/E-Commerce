@@ -58,6 +58,8 @@ Route::post('wishlist/move/cart/{rowId}',[WishlistController::class,"remove_to_c
 //group auth,AuthAdmin middleware   ------------------------------------------------------------------------
 Route::middleware(['auth'])->group( function(){
     route::get('/account_dashboard',[UserController::class,'index'])->name('user.index');
+    route::get('/account_orders',[UserController::class,'orders'])->name('user.orders');
+    route::get('/account_orders/details/{order_id}',[UserController::class,'order_details'])->name('user.orders.details');
 });
 Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::get('/admin',[AdminController::class,'index'])->name('admin.index');
