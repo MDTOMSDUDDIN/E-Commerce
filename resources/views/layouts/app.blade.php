@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/plugins/swiper.min.css') }}" type="text/css" />
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" type="text/css" />
         <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" type="text/css" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('admin_assets/css/sweetalert.min.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer">
         @stack('styles')
     </head>
@@ -664,6 +665,7 @@
         <div id="scrollTop" class="visually-hidden end-0"></div>
         <div class="page-overlay"></div>
       
+        <script src="{{ asset('admin_assets/js/sweetalert.min.js') }}"></script>    
         <script src="{{ asset('assets/js/plugins/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('assets/js/plugins/bootstrap-slider.min.js') }}"></script>
