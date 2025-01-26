@@ -27,11 +27,14 @@
         <div class="wg-box">
             <div class="flex items-center justify-between gap10 flex-wrap">
                 <div class="wg-filter flex-grow">
-                    <h5>Ordered Items</h5>
+                    <h5>Ordered Details</h5>
                 </div>
                 <a class="tf-button style-1 w208" href="{{ route('admin.orders') }}">Back</a>
             </div>
             <div class="table-responsive">
+                @if (Session::has('status'))
+                  <p class="alert alert-success">{{ session::get('status') }}</p>
+                @endif
                 <table class="table table-striped table-bordered">
                         <tr>
                             <th>Order NO</th>
@@ -187,6 +190,32 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+
+        <div class="wg-box mt-5">
+            <h5>Update Order Status</h5>
+            <form action="{{ route('admin.orders.update.status') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="order_id" value="{{ $order->id }}">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="select">
+                            <select name="order_status" id="order_status">
+                            <option value="ordered" {{ $order->status == 'ordered' ? 'selected':"" }}>Ordered</option>
+                            <option value="delivered" {{ $order->status == 'delivered' ? "selected":"" }}>delivered</option>
+                            <option value="canceled" {{ $order->status == 'canceled' ? 'selected':"" }}>canceled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary tf-button w208">Update Status</button>
+                    </div>
+                </div>
+
+            </form>
+           
         </div>
     </div>
 </div>
