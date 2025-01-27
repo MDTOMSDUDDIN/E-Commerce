@@ -291,4 +291,44 @@ class AdminController extends Controller
             'slides'=>$slides,
         ]);
     }
+
+    public function slides_add(){
+        return view('admin.slides-add');
+    }
+
+    public function slide_store(Request $request){
+        $request->validate([
+            'tagline'=>'required',
+            'title'=>'required',
+            'subtitle'=>'required',
+            'link'=>'required',
+            'status'=>'required',
+            'image'=>'required|mimes:png,jpeg,jpg|max:2028',
+        ]);
+        
+        $slide=new Slide();
+        $slide->tagline=$request->tagline;
+        $slide->title=$request->title;
+        $slide->subtitle=$request->subtitle;
+        $slide->link=$request->link;
+        $slide->status=$request->status;
+
+        $image=$request->file('image');
+        $file_extention=$request->file('image')->extension();
+        $file_name=Carbon::now()->timestamp.'.'.$file_extention;
+        $this->GenerateSlideThumnailsImage($image,$file_name);
+        $slide->image=$file_name;
+        $slide->save();
+
+        return redirect()->route('admin.slides')->with('status','Slides Create Successfully !');
+    }
+
+    public function GenerateSlideThumnailsImage($image,$imageName){
+        $destinationPath=public_path('uploads/slides');
+        $img=Image::read($image->path());
+        $img->cover(400,699,"top");
+        $img->resize(400,699,function($constrant){
+            $constrant->aspectRadio();
+        })->save( $destinationPath.'/'.$imageName);
+     }
 }
