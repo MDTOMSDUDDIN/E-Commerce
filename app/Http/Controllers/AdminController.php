@@ -7,6 +7,7 @@ use App\Models\category;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Slide;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -283,4 +284,11 @@ class AdminController extends Controller
         }
         return back()->with("status","Status Change Successfully !");
     } 
+
+    public function slides(){
+        $slides=Slide::orderBy('id','DESC')->paginate(12);
+        return view('admin.slides',[
+            'slides'=>$slides,
+        ]);
+    }
 }
