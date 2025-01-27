@@ -34,6 +34,9 @@
                 <a class="tf-button style-1 w208" href="{{ route('admin.slides.add') }}">
                     <i class="icon-plus"></i>Add new</a>
             </div>
+                @if (session('status'))
+                <strong class="alert alert-success ">{{ session('status') }}</strong> 
+                @endif
             <div class="wg-table table-all-user">
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -63,7 +66,7 @@
                             <td>{{ $slide->link }}</td>
                             <td>
                                 <div class="list-icon-function">
-                                    <a href="#">
+                                    <a href="{{ route('admin.slide.edit',['id'=>$slide->id]) }}">
                                         <div class="item edit">
                                             <i class="icon-edit-3"></i>
                                         </div>

@@ -331,4 +331,11 @@ class AdminController extends Controller
             $constrant->aspectRadio();
         })->save( $destinationPath.'/'.$imageName);
      }
+
+    public function Slide_edit($id){
+        $slide=Slide::find($id);
+        return view('admin.slide-edit',[
+           'slide'=>$slide,
+        ]);
+    }
 }
