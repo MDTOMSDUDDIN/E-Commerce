@@ -338,4 +338,37 @@ class AdminController extends Controller
            'slide'=>$slide,
         ]);
     }
+
+    public function slide_update(Request $request){
+        $request->validate([
+            'tagline'=>'required',
+            'title'=>'required',
+            'subtitle'=>'required',
+            'link'=>'required',
+            'status'=>'required',
+            'image'=>'required|mimes:png,jpeg,jpg|max:2028',
+        ]);
+        
+        $slide=Slide::find($request->id);
+        $slide->tagline=$request->tagline;
+        $slide->title=$request->title;
+        $slide->subtitle=$request->subtitle;
+        $slide->link=$request->link;
+        $slide->status=$request->status;
+
+        
+        if($request->hasFile('image')){
+            if(File::exists(public_path('uploads/slides').'/'.$slide->image)){
+                File::delete(public_path('uploads/slides').'/'.$slide->image);
+            }
+            $image=$request->file('image');
+            $file_extention=$request->file('image')->extension();
+            $file_name=Carbon::now()->timestamp.'.'.$file_extention;
+            $this->GenerateSlideThumnailsImage($image,$file_name);
+            $slide->image=$file_name;
+        }
+        $slide->save();
+
+        return redirect()->route('admin.slides')->with('status','Slides updates Successfully !');
+    }
 }

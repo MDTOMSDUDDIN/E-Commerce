@@ -29,8 +29,10 @@
         </div>
         <!-- new-category -->
         <div class="wg-box">
-            <form method="POST" action="#" enctype="multipart/form-data" class="form-new-product form-style-1" >
+            <form method="POST" action="{{ route('admin.slide.update') }}" enctype="multipart/form-data" class="form-new-product form-style-1" >
                 @csrf
+                @method("PUT")
+                <input type="hidden" name="id" value="{{ $slide->id }}">
                 <fieldset class="name">
                     <div class="body-title">Tagline <span class="tf-color-1">*</span></div>
                     <input class="flex-grow" type="text" placeholder="TagLine" name="tagline" tabindex="0" value="{{ $slide->tagline }}" aria-required="true" required="">
