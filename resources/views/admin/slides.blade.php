@@ -37,6 +37,9 @@
                 @if (session('status'))
                 <strong class="alert alert-success ">{{ session('status') }}</strong> 
                 @endif
+                @if (session('delete'))
+                <strong class="alert alert-danger ">{{ session('delete') }}</strong> 
+                @endif
             <div class="wg-table table-all-user">
                 <table class="table table-striped table-bordered">
                     <thead>
@@ -71,7 +74,9 @@
                                             <i class="icon-edit-3"></i>
                                         </div>
                                     </a>
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('admin.slide.delete',['id'=>$slide->id]) }}" method="POST">
+                                        @csrf
+                                        @method("DELETE")
                                         <div class="item text-danger delete">
                                             <i class="icon-trash-2"></i>
                                         </div>
@@ -91,3 +96,24 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script>
+        $(function(){
+            $(".delete").on('click',function(e){
+                e.preventDefault();
+                var selectedForm = $(this).closest('form');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to deleted this Silde post  ?",
+                    type: "warning",
+                    buttons: ["No", "Yes"],
+                    confirmButtonColor: 'red',
+                }).then(function (result) {
+                    if (result) {
+                        selectedForm.submit();  
+                    }
+                });                             
+            });
+        });
+    </script>
+@endpush

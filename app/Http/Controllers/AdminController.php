@@ -371,4 +371,13 @@ class AdminController extends Controller
 
         return redirect()->route('admin.slides')->with('status','Slides updates Successfully !');
     }
+
+    public function slide_delete($id){
+        $slide=Slide::find($id);
+        if(File::exists(public_path('uploads/slides').'/'.$slide->image)){
+            File::delete(public_path('uploads/slides').'/'.$slide->image);
+        }
+        $slide->delete();
+        return redirect()->route('admin.slides')->with('delete','Slides updates Successfully !');
+    }
 }
