@@ -8,6 +8,7 @@ use App\Models\Contact;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -20,6 +21,12 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class AdminController extends Controller
 {
+    public function search(Request $request){
+        $query=$request->input('query');
+        $result=Product::where('name','LIKE',"%{$query}%")->get()->take(8);
+        return response()->json($result);
+    }
+     
     function index(){
         $orders=Order::orderBy('created_at','desc')->get()->take(10);
         $deshboardDatas=DB::select("Select sum(total) As TotalAmount,
