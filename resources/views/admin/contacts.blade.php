@@ -4,7 +4,7 @@
 <div class="main-content-inner">
     <div class="main-content-wrap">
         <div class="flex items-center flex-wrap justify-between gap20 mb-27">
-            <h3>Coupons</h3>
+            <h3>All Message</h3>
             <ul class="breadcrumbs flex items-center flex-wrap justify-start gap10">
                 <li>
                     <a href="{{ route('admin.index') }}">
@@ -15,7 +15,7 @@
                     <i class="icon-chevron-right"></i>
                 </li>
                 <li>
-                    <div class="text-tiny">Coupons</div>
+                    <div class="text-tiny">All Message</div>
                 </li>
             </ul>
         </div>
@@ -37,40 +37,39 @@
                         class="icon-plus"></i>Add new</a>
             </div>
          
-            <div class="table-all-user">
+            <div class=" table-all-user">
                 <div class="table-responsive">
                     @if(Session::has('status'))
                     <p class="alert alert-success">{{ session::get('status') }}</p>    
-                   @endif
+                     @endif
+                    @if(Session::has('del'))
+                    <p class="alert alert-danger">{{ session::get('del') }}</p>    
+                     @endif
+
                     <table class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>Coupon-Id</th>
-                                <th>Code</th>
-                                <th>Type</th>
-                                <th>Value</th>
-                                <th>Cart Value</th>
-                                <th>Expiry Date</th>
+                                <th>Message-Id</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Comment</th>
+                                <th>Date</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($coupons as $coupon)              
+                            @foreach ($contacts as $contact)              
                             <tr>
-                                <td>{{ $coupon->id }}</td>
-                                <td>{{ $coupon->code }}</td>
-                                <td>{{ $coupon->type }}</td>
-                                <td>{{ $coupon->value }}</td>
-                                <td>${{ $coupon->cart_value }}</td>
-                                <td>{{ $coupon->expiry_date }}</td>
+                                <td>{{ $contact->id }}</td>
+                                <td>{{ $contact->name }}</td>
+                                <td>{{ $contact->email }}</td>
+                                <td>{{ $contact->phone }}</td>
+                                <td>{{ $contact->comment }}</td>
+                                <td>{{ $contact->created_at }}</td>
                                 <td>
                                     <div class="list-icon-function">
-                                        <a href="{{ route('admin.coupon.edit',['id'=>$coupon->id]) }}">
-                                            <div class="item edit">
-                                                <i class="icon-edit-3"></i>
-                                            </div>
-                                        </a>
-                                        <form action="{{ route('admin.coupon.delete',['id'=>$coupon->id]) }}" method="POST">
+                                        <form action="{{ route('admin.contacts.delete',['id'=>$contact->id]) }}" method="POST">
                                             @csrf
                                             @method("DELETE")
                                             <div class="item text-danger delete">
@@ -87,7 +86,7 @@
             </div>
             <div class="divider"></div>
             <div class="flex items-center justify-between flex-wrap gap10 wgp-pagination">
-                {{ $coupons->links('pagination::bootstrap-5') }}
+                {{ $contacts->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
@@ -102,7 +101,7 @@
                 var selectedForm = $(this).closest('form');
                 swal({
                     title: "Are you sure?",
-                    text: "You want to deleted this Coupon record ?",
+                    text: "You want to deleted this Contact Message ?",
                     type: "warning",
                     buttons: ["No", "Yes"],
                     confirmButtonColor: 'red',

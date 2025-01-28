@@ -29,6 +29,7 @@ require __DIR__.'/auth.php';
 
 Route::get('/',[HomeController::class, 'index'])->name('home.index');
 Route::get('/contact-us',[HomeController::class, 'contact'])->name('home.contact');
+Route::post('/contact/store',[HomeController::class, 'contact_store'])->name('home.contact.store');
 
 
 route::get('/shop',[ShopController::class,'index'])->name('shop.index');
@@ -108,5 +109,7 @@ Route::middleware(['auth',AuthAdmin::class])->group( function(){
     route::get('/admin/slides/edit/{id}',[AdminController::class,'Slide_edit'])->name('admin.slide.edit');
     route::put('/admin/slides/update',[AdminController::class,'slide_update'])->name('admin.slide.update');
     route::delete('/admin/slides/delete/{id}',[AdminController::class,'slide_delete'])->name('admin.slide.delete');
+    route::get('/admin/contact',[AdminController::class,'contacts'])->name('admin.contacts');
+    route::delete('/admin/contact/delete{id}',[AdminController::class,'contacts_delete'])->name('admin.contacts.delete');
 
 });

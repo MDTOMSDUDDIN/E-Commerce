@@ -145,6 +145,12 @@
                                             <div class="text">Coupons</div>
                                         </a>
                                     </li>
+                                    <li class="menu-item">
+                                        <a href="{{ route('admin.contacts') }}" class="">
+                                            <div class="icon"><i class="icon-mail"></i></div>
+                                            <div class="text">Messages</div>
+                                        </a>
+                                    </li>
     
                                     <li class="menu-item">
                                         <a href="users.html" class="">

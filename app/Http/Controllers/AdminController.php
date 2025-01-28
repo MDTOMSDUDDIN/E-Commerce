@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Brand;
 use App\Models\category;
+use App\Models\Contact;
 use App\Models\Coupon;
 use App\Models\Order;
 use App\Models\OrderItem;
@@ -428,5 +429,18 @@ class AdminController extends Controller
         }
         $slide->delete();
         return redirect()->route('admin.slides')->with('delete','Slides updates Successfully !');
+    }
+
+    public function contacts(){
+        $contacts=Contact::orderBy('created_at','desc')->paginate(10);
+        return view('admin.contacts',[
+            'contacts'=>$contacts,
+        ]);
+    }
+
+    public function contacts_delete($id){
+        $contact=Contact::find($id);
+        $contact->delete();
+        return redirect()->route('admin.contacts')->with('del','Message Deleted Successfully !');
     }
 }
