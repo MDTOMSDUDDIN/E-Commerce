@@ -26,11 +26,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+Route::get('/search',[HomeController::class, 'search'])->name('home.search');
 
 Route::get('/',[HomeController::class, 'index'])->name('home.index');
 Route::get('/contact-us',[HomeController::class, 'contact'])->name('home.contact');
 Route::post('/contact/store',[HomeController::class, 'contact_store'])->name('home.contact.store');
-
 
 route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
