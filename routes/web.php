@@ -28,6 +28,9 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/',[HomeController::class, 'index'])->name('home.index');
+Route::get('/contact-us',[HomeController::class, 'contact'])->name('home.contact');
+
+
 route::get('/shop',[ShopController::class,'index'])->name('shop.index');
 route::get('/shop/{product_slug}',[ShopController::class,'product_details'])->name('shop.product.details');
 

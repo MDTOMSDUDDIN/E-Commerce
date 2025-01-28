@@ -21,4 +21,8 @@ class HomeController extends Controller
             'fproducts'=>$fproducts,
         ]);
     }
+
+    public function contact(){
+        return view('contact');
+    }
 }
